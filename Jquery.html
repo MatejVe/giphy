@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>
+      Todo app
+    </title>
+  </head>
+  <body>
+    <h1>To do list</h1>
+    <form>
+      <input type="text" id="textInput" />
+      <input type="submit" />
+    </form>
+    <ul></ul>
+
+    <script>
+      var items = []; //nova lista
+
+      function onsubmit(event) {
+        event.preventDefault(); //prevent refresh
+
+        var textField = document.querySelector("#textInput");
+
+        if (textField.value !== "") {
+          items.push(textField.value); //doda elemente u listu
+          textField.value = ""; //clear textfield
+
+          var output = "";
+
+          for (var i = 0; i < items.length; i++) {
+            output += `<li id="todo${i}" onclick="erase(${i})">${
+              items[i]
+            }</li>`;
+          }
+        }
+        document.querySelector("ul").innerHTML = output;
+      }
+      function erase(i) {
+        items.splice(i, 1); //trajno se izbrise iz liste
+        document.querySelector(`#todo${i}`).remove();
+      }
+      //zadatak smisli kako se nesto izbruse iz arraya u js
+      document.querySelector("form").onsubmit = onsubmit;
+    </script>
+  </body>
+</html>
